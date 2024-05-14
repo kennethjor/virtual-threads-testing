@@ -6,8 +6,21 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        distribution: [ temurin ]
-        version: [ 21 ]
+        distribution:
+          - temurin
+          - zulu
+          - adopt
+          - liberica
+          - microsoft
+          - corretto
+          - semeru
+          - oracle
+          - dragonwell
+        version:
+          - 19
+          - 20
+          - 21
+          - 22
     steps:
       - name: Checkout
         uses: actions/checkout@v4
