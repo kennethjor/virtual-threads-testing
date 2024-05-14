@@ -11,7 +11,9 @@ jobs:
           - corretto
           - oracle
         version:
+          - 19
           - 21
+          - 22
     steps:
       - name: Checkout
         uses: actions/checkout@v4
