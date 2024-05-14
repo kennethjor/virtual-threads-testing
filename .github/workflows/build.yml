@@ -18,10 +18,9 @@ jobs:
           - oracle
           - dragonwell
         version:
-          - 19
-          - 20
           - 21
           - 22
+          - 23
     steps:
       - name: Checkout
         uses: actions/checkout@v4
