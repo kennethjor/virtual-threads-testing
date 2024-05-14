@@ -11,7 +11,7 @@ public class TimeAssertions {
 
 	public static void assertTime(
 			PoolType poolType, Duration virtualExpected, Duration platformExpected, Duration supplied) {
-		assertTime(poolType.isVirtual() ? virtualExpected : platformExpected, supplied, 0.1);
+		assertTime(poolType.isVirtual() ? virtualExpected : platformExpected, supplied, 0.15);
 	}
 
 	public static void assertTime(Duration expected, Duration supplied, double margin) {

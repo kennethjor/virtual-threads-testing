@@ -4,6 +4,29 @@ jobs:
   Java:
     timeout-minutes: 30
     runs-on: ubuntu-latest
+    #continue-on-error: true
+    strategy:
+      matrix:
+        distribution:
+          - temurin
+          - zulu
+          - adopt
+          - liberica
+          - microsoft
+          - corretto
+          - semeru
+          - oracle
+          - dragonwell
+        version:
+          - 21
+          - 22
+        exclude:
+          - distribution: microsoft
+            version: 22
+          - distribution: semeru
+            version: 22
+          - distribution: dragonwell
+            version: 22
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -11,8 +34,8 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: temurin
-          java-version: 21
+          distribution: ${{ matrix.distribution }}
+          java-version: ${{ matrix.version }}
           cache: gradle
 
       - name: Test
