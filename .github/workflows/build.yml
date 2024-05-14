@@ -4,6 +4,10 @@ jobs:
   Java:
     timeout-minutes: 30
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        distribution: [ temurin ]
+        version: [ 21 ]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -11,8 +15,8 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: temurin
-          java-version: 21
+          distribution: ${{ matrix.distribution }}
+          java-version: ${{ matrix.version }}
           cache: gradle
 
       - name: Test
