@@ -1,10 +1,13 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static util.RunUtil.runFutures;
 
 import java.io.IOException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.Duration;
+import java.time.Instant;
 import lombok.SneakyThrows;
 import okhttp3.mockwebserver.Dispatcher;
 import okhttp3.mockwebserver.MockResponse;
@@ -50,7 +53,10 @@ public class HttpClientTests {
 						.GET()
 						.uri(server.url("/").uri())
 						.build();
+				var start = Instant.now();
 				var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+				var duration = Duration.between(start, Instant.now());
+				assertTrue(duration.toMillis() >= 1000, duration.toString());
 				assertEquals(200, response.statusCode());
 				assertEquals("ok\n", response.body());
 			} catch (InterruptedException e) {
@@ -69,8 +75,11 @@ public class HttpClientTests {
 		var time = runFutures(poolType, () -> {
 			var request =
 					HttpRequest.newBuilder().GET().uri(server.url("/").uri()).build();
+			var start = Instant.now();
 			var response = client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
 					.join();
+			var duration = Duration.between(start, Instant.now());
+			assertTrue(duration.toMillis() >= 1000, duration.toString());
 			assertEquals(200, response.statusCode());
 			assertEquals("ok\n", response.body());
 		});

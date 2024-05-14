@@ -2,16 +2,15 @@ package util;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ForkJoinPool;
 
 public class Pools {
 	private static final ExecutorService PLATFORM = createPool(PoolType.PLATFORM);
 	private static final ExecutorService VIRTUAL = createPool(PoolType.VIRTUAL);
-	public static final int CONCURRENCY = ForkJoinPool.getCommonPoolParallelism();
+	public static final int CONCURRENCY = 2;
 
 	private static ExecutorService createPool(PoolType type) {
 		if (type == PoolType.PLATFORM) {
-			return ForkJoinPool.commonPool();
+			return Executors.newFixedThreadPool(CONCURRENCY);
 		} else if (type == PoolType.VIRTUAL) {
 			return Executors.newVirtualThreadPerTaskExecutor();
 		} else {

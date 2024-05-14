@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.EnumSource;
 import util.PoolType;
 import util.TimeAssertions;
 
-public class YieldTests {
+public class ThreadTests {
 	@ParameterizedTest
 	@EnumSource(PoolType.class)
 	@SneakyThrows

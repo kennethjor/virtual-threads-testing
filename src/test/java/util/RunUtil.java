@@ -16,7 +16,7 @@ public class RunUtil {
 	public static Duration runFutures(ExecutorService pool, Runnable runnable) {
 		var futures = new Future[Pools.CONCURRENCY * 2];
 		var start = Instant.now();
-		for (int i = 0; i < Pools.CONCURRENCY * 2; i++) {
+		for (int i = 0; i < futures.length; i++) {
 			futures[i] = pool.submit(runnable);
 		}
 		for (Future<?> future : futures) {
